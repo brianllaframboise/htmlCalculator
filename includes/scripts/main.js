@@ -59,7 +59,7 @@ const showFinalCalculation = () => {
     step = 4;
 
     // CODE TO UPDATE THE VALUES OF BASE, HEIGHT, AND HYPOTENUSE SHOULD GO HERE OR BE CALLED HERE
-    //
+    calculateFinal();
     //
 
     // Modify the html
@@ -105,4 +105,72 @@ const displayHTML = (html) => {
             });
         });
     }
+}
+
+const calculateFinal = () => {
+    // From Part30.java----------------
+    let x = 1.73;
+    base = x;
+    height = base;
+    let root3 = Math.pow(3, .5);
+    height /= root3;
+    hypotenuse = height * 2;
+
+    let y = 2;
+    hypotenuse = y;
+    base = hypotenuse;
+    //base를 2로 나눈 뒤, √3을 곱하기
+    base *= root3 / 2;
+    height = hypotenuse / 2;
+
+    let z = 1;
+    height = z;
+    base = height;
+    //base에 √3을 곱하기
+    base *= root3;
+	hypotenuse = height * 2;
+
+
+    // From Part45.java----------------
+    // let x = 1;
+	// base = x;
+	// height = base;
+    // //√2 만들기
+    // let root2 = Math.pow(2, 0.5);
+    // //hypotenuse에 √2를 곱하기
+    // hypotenuse = base * root2;
+
+    // let y = 1;
+    // hypotenuse = y;
+    // //base에 √2를 나누기
+    // base = hypotenuse / root2;
+    // height = hypotenuse / root2;
+    
+    // let z = 1;
+    // height = z;
+    // base = height;
+    // hypotenuse = height * root2;
+
+
+    //From Part60.java----------------
+    // let x = 1;
+    // double base = x;
+    // double height = base;
+    // //√3 만들기
+    // let root3 = Math.pow(3, 0.5);
+    // //height에 √3를 곱하기
+    // height *= root3;
+    // hypotenuse = base * 2;
+
+    // let y = 2;
+    // hypotenuse = y;
+    // base = hypotenuse / 2;
+    // height = hypotenuse;
+    // // height에 √3을 곱하고 2로 나누기
+    // height *= root3 / 2;
+    
+    // let z = root3;
+    // height = z;
+    // base = height / root3;
+    // hypotenuse = height * 2 / root3;
 }
