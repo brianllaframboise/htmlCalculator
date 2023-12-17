@@ -53,7 +53,7 @@ let stepTwo = `
 let stepThree = `
     <h1>About {{angleChoice}}˚📐</h1>
     <hr>
-    <p>The base is {{base}}, \n The height is {{height}} and \n The hypotenuse is {{hypotenuse}}</p> 
+    <p>The base is {{base}} <br>The height is {{height}} <br>The hypotenuse is {{hypotenuse}}</p> 
     <hr>
     <button class="greyBtn">Calculate another angle?</button>
 `;
