@@ -5,7 +5,6 @@ let base = 0;
 let height = 0;
 let hypotenuse = 0;
 let locale = "enUS";
-//let locale = "koKR";
 let alertMessage = "";
 
 const outputHTML = {
@@ -60,6 +59,10 @@ const outputHTML = {
     },
     "stepOne":{
         "enUS": `
+            <div id="localeSelect">
+                <img src="includes/images/koKR.png">
+                <img src="includes/images/enUS.png">
+            </div>
             <h1>About {{angleChoice}}˚📐</h1>
             <p>The reference angle is {{angleChoice}}˚ <span class="emoji">🤔</span></p> 
             <hr>
@@ -72,6 +75,10 @@ const outputHTML = {
             </div>
         `,
         "koKR": `
+            <div id="localeSelect">
+                <img src="includes/images/koKR.png">
+                <img src="includes/images/enUS.png">
+            </div>
             <h1>{{angleChoice}}˚ 📐</h1>
             <p>기준각는 {{angleChoice}}˚입니다. <span class="emoji">🤔</span></p> 
             <hr>
@@ -86,6 +93,10 @@ const outputHTML = {
     },
     "stepTwo": {
         "enUS": `
+            <div id="localeSelect">
+                <img src="includes/images/koKR.png">
+                <img src="includes/images/enUS.png">
+            </div>
             <h1>About {{angleChoice}}˚📐</h1>
             <p>The reference angle is {{angleChoice}}˚ <span class="emoji">🤔</span></p> 
             <p>The length of the side you entered is {{sideLength}}.</p> 
@@ -98,6 +109,10 @@ const outputHTML = {
             <button class="greyBtn">Height</button>
         `,
         "koKR": `
+            <div id="localeSelect">
+                <img src="includes/images/koKR.png">
+                <img src="includes/images/enUS.png">
+            </div>
             <h1>{{angleChoice}}˚ 📐</h1>
             <p>기준각는 {{angleChoice}}˚입니다. <span class="emoji">🤔</span></p> 
             <p>입력한 변의 길이는 {{sideLength}}입니다.</p> 
@@ -112,6 +127,10 @@ const outputHTML = {
     },
     "stepThree": {
         "enUS":`
+            <div id="localeSelect">
+                <img src="includes/images/koKR.png">
+                <img src="includes/images/enUS.png">
+            </div>
             <h1>About {{angleChoice}}˚📐</h1>
             <hr>
             <p>The base is {{base}} <br>The height is {{height}} <br>The hypotenuse is {{hypotenuse}}</p> 
@@ -119,6 +138,10 @@ const outputHTML = {
             <button class="greyBtn">Calculate another angle?</button>
         `,
         "koKR": `
+            <div id="localeSelect">
+                <img src="includes/images/koKR.png">
+                <img src="includes/images/enUS.png">
+            </div>
             <h1>{{angleChoice}}˚ 📐</h1>
             <hr>
             <p>밑변은 {{base}} <br>높이는 {{height}} <br>밑변은 {{hypotenuse}}입니다.</p> 

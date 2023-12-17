@@ -202,13 +202,11 @@ const displayHTML = (html) => {
         let listOfImages = document.querySelectorAll("img");
         //console.log(listOfImages);
         listOfImages.forEach(image => {
+            image.style.cursor = "pointer";
             image.addEventListener("click", (e) => {
-                //return US or KO
-                //console.log(e.target.src.substring(e.target.src.length - 6, e.target.src.length - 4));
-                locale = e.target.src.substring(e.target.src.length - 8, e.target.src.length - 4);
-                
-                let localeHTML = useLocale(outputHTML.beginHTML);
-                
+                //return enUS or koKR -- to make things easy, the images are named the same as the expected value
+                locale = e.target.src.substring(e.target.src.length - 8, e.target.src.length - 4);                
+                let localeHTML = useLocale(outputHTML.beginHTML);                
                 displayHTML(localeHTML);
             });
         });

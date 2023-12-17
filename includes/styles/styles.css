@@ -91,7 +91,7 @@ input{width:auto;}
 }
 #localeSelect img{
 	width: 22px;
-	cursor: pointer;
+	/* cursor: pointer; */
 }
 
 #container{
