@@ -1,46 +1,48 @@
 // Begin here...
 document.addEventListener("DOMContentLoaded", (event) => {
     //Display the beginning html...
-    displayHTML(beginHTML);
+    let localeHTML = useLocale(outputHTML.beginHTML);
+    displayHTML(localeHTML);
 });
 
 const showStepOne = () => {
     //Increment the step
     step = 2; //change the step so we can make sure the buttons work properly
-    
-    // Modify the html
-    // replace all instances of {{angleChoice}} in the html with the actual value
-    let stepOneHTML = stepOne.replaceAll("{{angleChoice}}", angleChoice);
-    
-    // display the final html
-    displayHTML(stepOneHTML);
+
+    let localeHTML = useLocale(outputHTML.stepOne);
+    // Modify the html -- replace all instances of {{angleChoice}} in the html with the actual value and display it
+    displayHTML(localeHTML.replaceAll("{{angleChoice}}", angleChoice));
 
     // safe guarding the buttons the same way as before...
     if (step === 2){
         // add the event listener for the only button
         // document.querySelector only returns the first instance
         document.querySelector(".greyBtn").addEventListener("click",() => {
-            // Make sure we actually have a number... 
-            if( !isNaN(document.querySelector("#sideLengthValue").value)){
+            // Make sure we actually have a number AND it's greater than zero
+            if( !isNaN(document.querySelector("#sideLengthValue").value) && Number(document.querySelector("#sideLengthValue").value) > 0){
                 sideLength = document.querySelector("#sideLengthValue").value;
                 showStepTwo();
+
+            //if the input contained something other than a positive number...
             }else{
-                alert("Please enter a number...");
+                alertMessage = useLocale(outputHTML.alerts.pleaseEnterNumber);
+                alert(alertMessage);
             }
-            
         });
     }
-}
+};
 
 // modify the html in the variable and display it...
 const showStepTwo = () => {
     //Increment the step
     step = 3; 
 
-    // Modify the html
-    let stepTwoHTML = stepTwo.replaceAll("{{angleChoice}}", angleChoice);
-    stepTwoHTML = stepTwoHTML.replaceAll("{{sideLength}}", sideLength);
-    displayHTML(stepTwoHTML);
+    // Get the HTML to display, 
+    let localeHTML = useLocale(outputHTML.stepTwo);
+    // Modify the html -- replace all instances of {{angleChoice}} and {{sideLength}}, then display it
+    localeHTML = localeHTML.replaceAll("{{angleChoice}}", angleChoice);
+    localeHTML = localeHTML.replaceAll("{{sideLength}}", sideLength);
+    displayHTML(localeHTML);
 
     // Add the button functions...
     // safe guarding the buttons the same way as before...
@@ -51,23 +53,24 @@ const showStepTwo = () => {
                 //assign the value of sideLength to base, hypotenuse, or height
                 let thisSide = e.target.innerHTML.toLowerCase();
                 switch (thisSide){
+                    case "기본":
                     case "base": base = sideLength; break;
+                    case "빗변":
                     case "height": height = sideLength; break;
+                    case "높이":
                     case "hypotenuse": hypotenuse = sideLength; break;
-                }                
+                }
                 showFinalCalculation();
             });
         });
     }
-}
+};
 
 const showFinalCalculation = () => {
     //Increment the step
     step = 4;
 
     // CODE TO UPDATE THE VALUES OF BASE, HEIGHT, AND HYPOTENUSE SHOULD GO HERE OR BE CALLED HERE
-    //calculateFinal();
-
     let root3 = Math.pow(3, .5);
     let root2 = Math.pow(2, 0.5);
 
@@ -141,22 +144,14 @@ const showFinalCalculation = () => {
     //    console.log("hypotenuse =", hypotenuse);
     //    console.log("height =", height);
 
-    base = Number(base).toFixed(2);
-    height = Number(height).toFixed(2);
-    hypotenuse = Number(hypotenuse).toFixed(2);
 
-    // Modify the html
-    let stepThreeHTML = stepThree.replaceAll("{{angleChoice}}", angleChoice); //show the Angle
-    stepThreeHTML = stepThreeHTML.replaceAll("{{base}}", Number(base).toFixed(2)); //show the base
-    stepThreeHTML = stepThreeHTML.replaceAll("{{height}}", Number(height).toFixed(2)); //show the height
-    stepThreeHTML = stepThreeHTML.replaceAll("{{hypotenuse}}", Number(hypotenuse).toFixed(2)); //show the hypotenuse
-
-    // let stepThreeHTML = stepThree.replaceAll("{{angleChoice}}", angleChoice); //show the Angle
-    // stepThreeHTML = stepThreeHTML.replaceAll("{{base}}", base); //show the base
-    // stepThreeHTML = stepThreeHTML.replaceAll("{{height}}", height); //show the height
-    // stepThreeHTML = stepThreeHTML.replaceAll("{{hypotenuse}}", hypotenuse); //show the hypotenuse
-    
-    displayHTML(stepThreeHTML);
+    // Modify the html and display it...
+    let localeHTML = useLocale(outputHTML.stepThree);
+    localeHTML = localeHTML.replaceAll("{{angleChoice}}", angleChoice); //show the Angle
+    localeHTML = localeHTML.replaceAll("{{base}}", Number(base).toFixed(2)); //show the base
+    localeHTML = localeHTML.replaceAll("{{height}}", Number(height).toFixed(2)); //show the height
+    localeHTML = localeHTML.replaceAll("{{hypotenuse}}", Number(hypotenuse).toFixed(2)); //show the hypotenuse
+    displayHTML(localeHTML);
 
     // safe guarding the buttons the same way as before...
     if (step === 4){
@@ -169,11 +164,22 @@ const showFinalCalculation = () => {
             base = 0;
             height = 0;
             hypotenuse = 0;            
-            //Display the beginning html...
-            displayHTML(beginHTML);
+           //Display the beginning html...
+            let localeHTML = useLocale(outputHTML.beginHTML);
+            displayHTML(localeHTML);
         });
     }
+};
 
+// Determine the correct language to use...
+const useLocale = (html) => {
+    let localeHTML;
+
+    switch (locale){
+        case "enUS": localeHTML = html["enUS"]; break;
+        case "koKR": localeHTML = html["koKR"]; break;
+    }
+    return localeHTML;
 }
 
 //As a function so that we can reset it later...
@@ -192,71 +198,19 @@ const displayHTML = (html) => {
                 showStepOne();
             });
         });
+
+        let listOfImages = document.querySelectorAll("img");
+        //console.log(listOfImages);
+        listOfImages.forEach(image => {
+            image.addEventListener("click", (e) => {
+                //return US or KO
+                //console.log(e.target.src.substring(e.target.src.length - 6, e.target.src.length - 4));
+                locale = e.target.src.substring(e.target.src.length - 8, e.target.src.length - 4);
+                
+                let localeHTML = useLocale(outputHTML.beginHTML);
+                
+                displayHTML(localeHTML);
+            });
+        });
     }
-}
-
-    // From Part30.java----------------
-    // let x = 1.73;
-    // base = x;
-    // height = base;
-    // let root3 = Math.pow(3, .5);
-    // height /= root3;
-    // hypotenuse = height * 2;
-
-    // let y = 2;
-    // hypotenuse = y;
-    // base = hypotenuse;
-    // //base를 2로 나눈 뒤, √3을 곱하기
-    // base *= root3 / 2;
-    // height = hypotenuse / 2;
-
-    // let z = 1;
-    // height = z;
-    // base = height;
-    // //base에 √3을 곱하기
-    // base *= root3;
-	// hypotenuse = height * 2;
-
-
-    // From Part45.java----------------
-    // let x = 1;
-	// base = x;
-	// height = base;
-    // //√2 만들기
-    // let root2 = Math.pow(2, 0.5);
-    // //hypotenuse에 √2를 곱하기
-    // hypotenuse = base * root2;
-
-    // let y = 1;
-    // hypotenuse = y;
-    // //base에 √2를 나누기
-    // base = hypotenuse / root2;
-    // height = hypotenuse / root2;
-    
-    // let z = 1;
-    // height = z;
-    // base = height;
-    // hypotenuse = height * root2;
-
-
-    //From Part60.java----------------
-    // let x = 1;
-    // double base = x;
-    // double height = base;
-    // //√3 만들기
-    // let root3 = Math.pow(3, 0.5);
-    // //height에 √3를 곱하기
-    // height *= root3;
-    // hypotenuse = base * 2;
-
-    // let y = 2;
-    // hypotenuse = y;
-    // base = hypotenuse / 2;
-    // height = hypotenuse;
-    // // height에 √3을 곱하고 2로 나누기
-    // height *= root3 / 2;
-    
-    // let z = root3;
-    // height = z;
-    // base = height / root3;
-    // hypotenuse = height * 2 / root3;
+};
